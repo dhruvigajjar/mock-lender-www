@@ -131,10 +131,7 @@ const RegistrationDetailsForm = (props) => {
         .catch((err) => {
           console.log("error in registration response!");
           // On Error
-          setStore({
-            sessionToken: "asdfghjkl"
-          });
-          nextCallback();
+          
         });
     }
   };

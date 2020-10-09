@@ -96,11 +96,7 @@ const OTPVerificationForm = (props) => {
           }
         })
         .catch((err) => {
-          console.log("error in verification response!");
-          setStore({
-            apiKey: ""
-          });
-          nextCallback();
+          
           // On Error
         });
     }
