@@ -4,9 +4,10 @@ import React from "react";
 // import Section from '../components/Section'
 
 export default function PostRegisterView(props) {
-  const { setFlow, key } = props;
+  const { setFlow, store } = props;
 
-  let apiKey = key || "JUS0cbd35263ad84257bcd4c5c32bdbb8f1";
+  let apiKey = store.apiKey || "JUS0cbd35263ad84257bcd4c5c32bdbb8f1";
+  let orgId = store.orgId || "JUS0cbd35263ad84257bcd4c5c32bdbb8f1";
 
   let codeStr = (key) => (`
   $ curl --location --request POST 'http://localhost:8081/v3/loan/triggerLoanAcceptanceRequest'
@@ -17,7 +18,7 @@ export default function PostRegisterView(props) {
          "version": "1.0",
          "timestamp": "2018-12-06T11:39:57.153Z",
          "traceId": "e8cc6822bd4bbb4eb1b9e1b4996fbff8acb",
-         "orgId": "JUSd2da3f8d530d43b985be1d3f882e7437"
+         "orgId": "${orgId}"
      },
      "requestId": "t8cc6822bd4bbb4eb1b9e1b4996fbff8acb",
      "loanApplicationIds": [

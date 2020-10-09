@@ -91,12 +91,14 @@ const OTPVerificationForm = (props) => {
           // On Success
           console.log("Successful verification response!", res);
           setStore(res.body);
-          nextCallback();
+          if (res.body.status === "SUCCESS"){
+            nextCallback();
+          }
         })
         .catch((err) => {
           console.log("error in verification response!");
           setStore({
-            apiKey: "qwertyuiop"
+            apiKey: ""
           });
           nextCallback();
           // On Error

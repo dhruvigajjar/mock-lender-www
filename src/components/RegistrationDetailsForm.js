@@ -10,8 +10,8 @@ const initForm = {
     name: "name",
     value: "",
     error: false,
-    validation: /^([a-zA-Z0-9 ]{5,})$/,
-    helperText: "Company Name must be 5 letters or more"
+    validation: /^([a-zA-Z0-9 ]{1,})$/,
+    helperText: "Company Name must be there"
   },
   phone: {
     label: "Phone",
