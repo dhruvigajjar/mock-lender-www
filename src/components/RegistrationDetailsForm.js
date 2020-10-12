@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import { isEmpty } from "lodash";
 
 import { Grid, TextField, Button, Box } from "@material-ui/core";
@@ -9,8 +10,8 @@ const initForm = {
     name: "name",
     value: "",
     error: false,
-    validation: /^([a-zA-Z0-9]{5,})$/,
-    helperText: "Company Name must be 5 letters or more"
+    validation: /^([a-zA-Z0-9 ]{1,})$/,
+    helperText: "Company Name must be there"
   },
   phone: {
     label: "Phone",
@@ -54,9 +55,15 @@ const makeValuesFromForm = (form) => {
   return values;
 };
 
-const RegistrationDetailsForm = (props) => {
+const useStyles = makeStyles((theme) => ({
+  textField: {
+    width: "100%"
+  }
+}));
 
-  const { nextCallback } = props;
+const RegistrationDetailsForm = (props) => {
+  const classes = useStyles();
+  const { nextCallback , setStore } = props;
 
   //
   // ───────────────────────────────────────────────────── FORM UTILITIES ─────
@@ -90,6 +97,7 @@ const RegistrationDetailsForm = (props) => {
       e.error = !e.validation.test(e.value);
     });
     setForm(newForm);
+    return Object.values(newForm).every(v => v.error === false);
   };
 
   //
@@ -97,6 +105,7 @@ const RegistrationDetailsForm = (props) => {
   //
 
   const onClickLogin = () => {
+    
     if (validateForm()) {
 
       const formDetails = makeValuesFromForm(form);
@@ -115,12 +124,14 @@ const RegistrationDetailsForm = (props) => {
         .then((res) => res.body)
         .then((res) => {
           // On Success
-          console.log("Successful verification response!", res);
+          console.log("Successful registration response!", res);
+          setStore(res.body);
           nextCallback();
         })
         .catch((err) => {
-          console.log("error in verification response!");
+          console.log("error in registration response!");
           // On Error
+          
         });
     }
   };
@@ -131,7 +142,7 @@ const RegistrationDetailsForm = (props) => {
     {formOrder.map((e, i) => (
       <span key={i}>
         <TextField
-          className="w-100"
+          className={classes.textField}
           variant="outlined"
           onChange={formChange}
           onBlur={formBlur}
